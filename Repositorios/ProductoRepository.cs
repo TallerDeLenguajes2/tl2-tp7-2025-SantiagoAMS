@@ -1,8 +1,7 @@
 using models;
 public class ProductoRepository
 {
-    private string _connectionString = "Data Source=DB/tienda.db"
-
+    private string _connectionString = "Data Source=DB/tienda.db";
 
     private SqliteConnection ConnectAndEnsureTable()
     {
@@ -21,7 +20,7 @@ public class ProductoRepository
     {
         using (SqliteConnection con = ConnectAndEnsureTable())
         {
-            string sql = "INSERT INTO Productos (Descripcion, Precio) VALUES(@desc, @prec)";
+            string sql = "INSERT INTO Productos (Descripcion, Precio) VALUES(@desc, @prec); SELECT last_insert_rowid();";
             using (var cmd = new SqliteCommand(sql, con))
             {
                 cmd.Paremeters.AddWithValue("@desc", p.Descripcion);
@@ -48,7 +47,7 @@ public class ProductoRepository
     }
     public List<Producto> Listar()
     {
-        List<Produucto> ret = [];
+        List<Producto> ret = [];
         using (SqliteConnection con = ConnectAndEnsureTable())
         {
             string sql = "SELECT idProducto, Descripcion, Precio FROM Productos";

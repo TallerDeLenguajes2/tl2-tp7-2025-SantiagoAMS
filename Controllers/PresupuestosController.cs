@@ -6,5 +6,9 @@ namespace PREREPO.Controllers;
 [Route("[controller]")]
 public class PresupuestosController : ControllerBase
 {
+    private PresupuestosRepository _repo;
 
+    public PresupuestosController(){
+        _repo = new PresupuestosRepository();
+    }
 }
