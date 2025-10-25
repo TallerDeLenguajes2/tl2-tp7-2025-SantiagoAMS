@@ -9,6 +9,12 @@ public class PresupuestoDetalle
 
     }
 
+    public PresupuestoDetalle(Producto p, int cant)
+    {
+        this.Producto = p;
+        this.Cantidad = cant;
+    }
 
+    
 
 }

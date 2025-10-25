@@ -11,6 +11,13 @@ public class Producto{
         this.Precio = precio;
     }
 
+    public Producto(string descripcion, double precio)
+    {
+        this.Descripcion = Descripcion;
+        this.Precio = precio;
+    }
+
+
     public Producto()
     {
 

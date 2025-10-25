@@ -5,7 +5,7 @@ public class Presupuesto
     public int IdPresupuesto { get; private set; }
     public string NombreDestinatario { get; private set; }
     public DateOnly FechaCreacion { get; private set; }
-    public List<PresupuestoDetalle> Detalle { get; private set; }
+    public List<PresupuestoDetalle> Detalle { get; set; }
 
 
     public Presupuesto(int id, string nombre, DateOnly fecha)
@@ -16,6 +16,14 @@ public class Presupuesto
         this.Detalle = [];
     }
 
+    public Presupuesto(int id, string nombre, string fecha)
+    {
+        this.IdPresupuesto = id;
+        this.NombreDestinatario = nombre;
+        this.Detalle = [];
+        this.FechaCreacion = DateOnly.Parse(fecha);
+    }
+
     public Presupuesto(int id, string nombre, DateOnly fecha, List<PresupuestoDetalle> detalle)
     {
         this.IdPresupuesto = id;
@@ -23,6 +31,7 @@ public class Presupuesto
         this.FechaCreacion = fecha;
         this.Detalle = detalle;
     }
+
 
     public Presupuesto()
     {
