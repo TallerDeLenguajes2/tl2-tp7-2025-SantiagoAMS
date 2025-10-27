@@ -20,11 +20,17 @@ public class PresupuestosRepository
     }
 
 
-    public void Crear(Presupuesto p)
+    public int Crear(Presupuesto p)
     {
-        using (var cmd = ConnectAndEnsureTable())
+        using (var con = ConnectAndEnsureTable())
         {
-            string sql = "";
+            string sql = "INSERT INTO Presupuestos(NombreDestinatario, FechaCreacion) values (@nom, @fec); SELECT last_insert_rowid()";
+            using (var cmd = new SqliteCommand(sql, con))
+            {
+                cmd.Parameters.AddWithValue("@nom", p.NombreDestinatario);
+                cmd.Parameters.AddWithValue("@fec", p.FechaCreacion);
+                return Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
         }
     }
 

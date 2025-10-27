@@ -7,13 +7,13 @@ public class Producto{
 
     public Producto(int id, string descripcion, double precio) {
         this.IdProducto = id;
-        this.Descripcion = Descripcion;
+        this.Descripcion = descripcion;
         this.Precio = precio;
     }
 
     public Producto(string descripcion, double precio)
     {
-        this.Descripcion = Descripcion;
+        this.Descripcion = descripcion;
         this.Precio = precio;
     }
 

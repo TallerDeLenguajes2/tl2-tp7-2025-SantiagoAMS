@@ -10,7 +10,7 @@ public class ProductoRepository
         // Basicamente hace la conexion, y se asegura de la existencia de la tabla
         var con = new SqliteConnection(_connectionString);
         con.Open();
-        string createTableQuery = "CREATE TABLE IF NOT EXISTS productos (idProducto INTEGER PRIMARY KEY UNIQUE NOT NULL, Descripcion TEXT(100), precio NUMERIC(10,2))";
+        string createTableQuery = "CREATE TABLE IF NOT EXISTS Productos (idProducto INTEGER PRIMARY KEY UNIQUE NOT NULL, Descripcion TEXT(100), precio NUMERIC(10,2))";
         using (SqliteCommand createTableCmd = new SqliteCommand(createTableQuery, con))
         {
             createTableCmd.ExecuteNonQuery();
@@ -32,7 +32,6 @@ public class ProductoRepository
                 return id;
             }
         }
-        return -1;
     }
 
 
@@ -103,7 +102,7 @@ public class ProductoRepository
     {
         using (SqliteConnection con = ConnectAndEnsureTable())
         {
-            string sql = "DELETE from Producto where idProducto = @id";
+            string sql = "DELETE from Productos where idProducto = @id";
             using (var cmd = new SqliteCommand(sql, con))
             {
                 cmd.Parameters.AddWithValue("@id", id);
