@@ -8,6 +8,14 @@ public class Presupuesto
     public List<PresupuestoDetalle> Detalle { get; set; }
 
 
+    public Presupuesto(string nombre, DateOnly fecha)
+    {
+        this.IdPresupuesto = -1;
+        this.NombreDestinatario = nombre;
+        this.FechaCreacion = fecha;
+        this.Detalle = [];
+    }
+
     public Presupuesto(int id, string nombre, DateOnly fecha)
     {
         this.IdPresupuesto = id;

@@ -102,26 +102,23 @@ public class PresupuestosRepository
                     }
                 }
             }
+            ret.Detalle = list;
             return ret;
         }
     }
 
     public int Agregar(int id, Producto p, int cantidad)
     {
-        using (SqliteConnection con = ConnectAndEnsureTable())
-        {
-            string sql = "INSERT INTO PresupuestosDetalle (idPresupuesto,idProducto,cantidad) VALUES(@idPre, @idProd, @cant); SELECT last_insert_rowid();";
-            using (var cmd = new SqliteCommand(sql, con))
-            {
-                cmd.Parameters.AddWithValue("@idPre", id);
-                cmd.Parameters.AddWithValue("@idProd", p.IdProducto);
-                cmd.Parameters.AddWithValue("@cant", cantidad);
-                return Convert.ToInt32(cmd.ExecuteNonQuery());
-            }
-        }
+        using SqliteConnection con = ConnectAndEnsureTable();
+        string sql = "INSERT INTO PresupuestosDetalle (idPresupuesto,idProducto,cantidad) VALUES(@idPre, @idProd, @cant); SELECT last_insert_rowid();";
+        using var cmd = new SqliteCommand(sql, con);
+        cmd.Parameters.AddWithValue("@idPre", id);
+        cmd.Parameters.AddWithValue("@idProd", p.IdProducto);
+        cmd.Parameters.AddWithValue("@cant", cantidad);
+        return Convert.ToInt32(cmd.ExecuteNonQuery());
     }
 
-    public void Eliminar(int id)
+    public bool Eliminar(int id)
     {
         using (SqliteConnection con = ConnectAndEnsureTable())
         {
@@ -131,6 +128,7 @@ public class PresupuestosRepository
                 cmd.Parameters.AddWithValue("@idPre", id);
                 cmd.Parameters.AddWithValue("@idPre", id);
                 cmd.ExecuteNonQuery();
+                return true;
             }
         }
     }

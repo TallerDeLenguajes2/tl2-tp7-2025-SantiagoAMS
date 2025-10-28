@@ -20,7 +20,7 @@ public class ProductosController : ControllerBase
     {
         Producto p = new Producto(descripcion, precio);
         var ret = _repo.Crear(p);
-        return CreatedAtAction(null, "Created new Producto",ret);
+        return CreatedAtAction(null, "","Created new Producto, ID= "+ret);
     }
 
     [HttpPut("api/Producto/{id}")]

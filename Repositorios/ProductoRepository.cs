@@ -76,12 +76,22 @@ public class ProductoRepository
 
     public Producto Obtener(int id)
     {
+        string sql = "SELECT idProducto, Descripcion, Precio FROM Productos WHERE idProducto = @id";
+        return _Obtener(sql, id, true);
+    }
+    public Producto Obtener(string descripcion, bool like=false)
+    {
+        string sql = $"SELECT idProducto, Descripcion, Precio FROM Productos WHERE Descripcion {(like ? "LIKE %@desc%" : "= @desc")}";
+        return _Obtener(sql, descripcion, false);
+    }
+    private Producto _Obtener(string sql, object arg, bool byId = true)
+    {
         using (SqliteConnection con = ConnectAndEnsureTable())
         {
-            string sql = "SELECT idProducto, Descripcion, Precio FROM Productos WHERE idProducto = @id";
             using (var cmd = new SqliteCommand(sql, con))
             {
-                cmd.Parameters.AddWithValue("@id", id);
+
+                cmd.Parameters.AddWithValue(byId? "@id" : "@desc", arg);
                 using (SqliteDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
